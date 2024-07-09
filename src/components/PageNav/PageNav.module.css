@@ -1,0 +1,21 @@
+/* .header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+} */
+
+.nav {
+   display: flex;
+   justify-content: space-between;
+}
+
+.menu {
+    position: absolute;
+    right: 32px;
+    top: 32px;
+    height: 32px;
+    width: 32px;
+    display: block;
+}
+

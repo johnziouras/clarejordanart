@@ -1,0 +1,57 @@
+.links.mobile ul {
+    margin-top: 48px;
+    list-style: none;
+    padding-top: 32px;
+    padding-right: 32px;
+    display: grid;
+    grid-gap: 2;
+    align-items: end;
+    
+}
+
+.links ul {
+    display: flex;
+    list-style: none;
+    padding-top: 32px;
+    padding-right: 32px;
+    justify-content: end;
+    align-items: center;
+}
+
+.links li {
+    display: inline-block;
+    margin-left: 24px;
+}
+
+
+.links a {
+    text-decoration: none;
+    color: inherit;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: medium;
+}
+
+.orange0 {
+    color: var(--color-orange--0);
+}
+
+.orange1 {
+    color: var(--color-orange--1);
+}
+
+.blue0{
+    color: var(--color-blue--0);
+}
+
+.blue1{
+    color: var(--color-blue--1);
+}
+
+.yellow0{
+    color: var(--color-yellow--0);
+}
+
+.teal0{
+    color: var(--color-teal--0);
+}

@@ -1,0 +1,31 @@
+/* These CSS variables are global, so they are available in all CSS modules */
+:root {
+
+  --color-dark--0: #1E1E1E;
+  --color-blue--0: #0C5C95;
+  --color-blue--1: #0060B9;
+  --color-orange--0: #B0340C;
+  --color-orange--1: #DC3A07;
+  --color-teal--0: #00BDA7;
+  --color-yellow--0: #E5B300;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Helvetica", sans-serif;
+  color: var(--color-dark--0);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+
