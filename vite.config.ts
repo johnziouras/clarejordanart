@@ -26,6 +26,14 @@ export default defineConfig({
         find: "@assets",
         replacement: fileURLToPath(new URL("./src/assets", import.meta.url)),
       },
+      {
+        find: "@fb",
+        replacement: fileURLToPath(new URL("./src/firebase", import.meta.url)),
+      },
+      {
+        find: "@hooks",
+        replacement: fileURLToPath(new URL("./src/hooks", import.meta.url)),
+      },
     ],
   },
 });

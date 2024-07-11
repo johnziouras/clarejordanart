@@ -10,9 +10,9 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/paintings" element={<ArtPage />} />
-        <Route path="/photography" element={<ArtPage />} />
-        <Route path="/watercolors" element={<ArtPage />} />
+        <Route path="/paintings" element={<ArtPage path={"paintings"} />} />
+        <Route path="/photography" element={<ArtPage path={"photography"} />} />
+        <Route path="/watercolors" element={<ArtPage path={"watercolors"} />} />
         <Route path="/publications" element={<PubPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />

@@ -12,7 +12,9 @@
     "paths": {
       "@/*": ["./src/*"],
       "@components/*": ["./src/components/*"],
-      "@assets/*": ["./src/assets/*"]
+      "@assets/*": ["./src/assets/*"],
+      "@firebase/*": ["./src/firebase/*"],
+      "@hooks/*": ["./src/hooks/*"]
     }
   }
 }
