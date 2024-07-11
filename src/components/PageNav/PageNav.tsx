@@ -8,7 +8,6 @@ import styles from "./PageNav.module.css";
 
 function PageNav() {
   const isMobile = useMediaQuery({ maxWidth: 1024 });
-  console.log(isMobile);
   const [isOpen, setIsOpen] = useState(false);
 
   function handleClick() {
