@@ -26,7 +26,10 @@ const db = getFirestore(app);
 async function getImages(db: Firestore, path: string) {
   const imagesCol = collection(db, path);
   const imagesSnapshot = await getDocs(imagesCol);
-  const imagesList = imagesSnapshot.docs.map((doc) => doc.data());
+  const imagesList = imagesSnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
   return imagesList;
 }
 

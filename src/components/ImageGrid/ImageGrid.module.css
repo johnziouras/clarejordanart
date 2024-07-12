@@ -3,11 +3,17 @@
     margin: 48px auto;
 }
 
-.grid {
+/* .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
     align-items: center;
+} */
+
+.grid {
+    column-count: 3;
+    column-width: 25%;
+    padding: 8px;
 }
 
 .image img{
@@ -16,4 +22,12 @@
     height: auto;
     object-fit: cover;
     display: block;
+    margin-bottom: 8px;
+}
+
+@media (max-width: 800px) {
+    .grid {
+        column-count: 2;
+        column-width: 37.5%;
+    }
 }

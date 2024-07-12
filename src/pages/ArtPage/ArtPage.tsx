@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer/Footer";
 import Header from "@components/Header/Header";
 import ImageGrid from "@components/ImageGrid/ImageGrid";
 import { useArt } from "@hooks/useArt";
@@ -14,6 +15,7 @@ function ArtPage({ path }: ArtPageProps) {
     <>
       <Header />
       <ImageGrid art={art} />
+      <Footer />
     </>
   );
 }
