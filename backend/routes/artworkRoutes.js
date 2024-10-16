@@ -1,13 +1,14 @@
 const express = require("express");
+const router = express.Router();
 const {
   getArtwork,
   setArtwork,
   updateArtwork,
   deleteArtwork,
 } = require("../controllers/artworkController");
-const router = express.Router();
+const { protect } = require("../middleware/authMiddleware");
 
-router.route("/").get(getArtwork).post(setArtwork);
-router.route("/:id").put(updateArtwork).delete(deleteArtwork);
+router.route("/").get(getArtwork).post(protect, setArtwork);
+router.route("/:id").put(protect, updateArtwork).delete(protect, deleteArtwork);
 
 module.exports = router;

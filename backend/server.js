@@ -12,6 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/artwork", require("./routes/artworkRoutes"));
+app.use("/users", require("./routes/userRoutes"));
 
 app.use(errorHandler);
 
