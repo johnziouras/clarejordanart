@@ -1,4 +1,4 @@
-const AboutPage = () => {
+const About= () => {
   return (
     <div className="flex m-8">
       <h1 className="font-bold text-2xl">About</h1>
@@ -6,4 +6,4 @@ const AboutPage = () => {
   );
 };
 
-export default AboutPage;
+export default About;
