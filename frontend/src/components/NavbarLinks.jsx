@@ -1,6 +1,18 @@
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { logout, reset } from "../features/auth/authSlice";
 
 const NavbarLinks = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+
+  const onLogout = () => {
+    dispatch(logout());
+    dispatch(reset());
+    navigate("/");
+  };
+
   return (
     <div className="flex-nowrap whitespace-nowrap mt-2">
       <Link
@@ -27,6 +39,11 @@ const NavbarLinks = () => {
       <Link to="/contact" className="text-xl font-bold pr-4 text-sky-700">
         CONTACT
       </Link>
+      {user && (
+        <button className="text-xl font-bold pr-4" onClick={onLogout}>
+          LOGOUT
+        </button>
+      )}
     </div>
   );
 };
