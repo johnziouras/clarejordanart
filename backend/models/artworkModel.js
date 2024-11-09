@@ -4,7 +4,6 @@ const artworkSchema = mongoose.Schema(
   {
     title: {
       type: String,
-      required: true,
       trim: true,
     },
     imageURL: {
@@ -16,11 +15,11 @@ const artworkSchema = mongoose.Schema(
       type: String,
       trim: true,
     },
-    height: {
+    width: {
       type: Number,
       required: true,
     },
-    width: {
+    height: {
       type: Number,
       required: true,
     },
@@ -36,6 +35,11 @@ const artworkSchema = mongoose.Schema(
     description: {
       type: String,
       trim: true,
+    },
+    hash: {
+      type: String,
+      required: true,
+      unique: true,
     },
   },
   {

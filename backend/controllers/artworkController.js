@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
-
+const { uploadFile } = require("../services/s3Service");
 const Artwork = require("../models/artworkModel");
+const crypto = require("crypto");
 
 // @desc    Get all images
 // @route   GET /api/images
@@ -15,26 +16,58 @@ const getArtwork = asyncHandler(async (req, res) => {
 // @route   /api/images
 // @access  Public
 const setArtwork = asyncHandler(async (req, res) => {
-  if (!req.body) {
+  if (!req.body || !req.file) {
     res.status(400);
     throw new Error();
   }
 
-  const { title, imageURL, altText, height, width, medium, year, description } =
-    req.body;
+  try {
+    const {
+      title = "",
+      altText = "",
+      height,
+      width,
+      medium,
+      year,
+      description = "",
+      available = false,
+    } = req.body;
 
-  const artwork = await Artwork.create({
-    title,
-    imageURL,
-    altText,
-    height,
-    width,
-    medium,
-    year,
-    description,
-  });
+    const hash = crypto
+      .createHash("sha256")
+      .update(req.file.buffer)
+      .digest("hex");
 
-  res.status(200).json(artwork);
+    console.log("hash:", hash);
+
+    // Check if artwork with the same hash already exists
+    const existingArtwork = await Artwork.findOne({ hash });
+    if (existingArtwork) {
+      return res
+        .status(400)
+        .json({ message: "Duplicate file upload detected" });
+    }
+
+    const imageURL = await uploadFile(req.file);
+
+    const artwork = await Artwork.create({
+      title,
+      imageURL,
+      altText,
+      height,
+      width,
+      medium,
+      year,
+      description,
+      available,
+      hash,
+    });
+
+    res.status(200).json(artwork);
+  } catch (error) {
+    res.status(500);
+    throw new Error("Failed to upload artwork");
+  }
 });
 
 // @desc    Update image

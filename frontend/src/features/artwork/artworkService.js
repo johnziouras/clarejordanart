@@ -2,12 +2,11 @@ import axios from "axios";
 
 const API_URL = "/artwork/";
 
-// Get artwork
 const getArtwork = async () => {
   const response = await axios.get(API_URL);
   return response.data;
 };
-// Add artwork
+
 const uploadArtwork = async (artworkData, token) => {
   const config = {
     headers: {
