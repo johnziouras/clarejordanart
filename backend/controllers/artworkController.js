@@ -31,6 +31,7 @@ const setArtwork = asyncHandler(async (req, res) => {
       year,
       description = "",
       available = false,
+      type,
     } = req.body;
 
     const hash = crypto
@@ -60,6 +61,7 @@ const setArtwork = asyncHandler(async (req, res) => {
       year,
       description,
       available,
+      type,
       hash,
     });
 

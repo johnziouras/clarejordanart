@@ -2,6 +2,8 @@ import { createRef, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Spinner from "../components/Spinner";
+import UploadForm from "../components/UploadForm";
 import { uploadArtwork } from "../features/artwork/artworkSlice";
 
 const Upload = () => {
@@ -9,7 +11,11 @@ const Upload = () => {
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.auth);
-  const { isSuccess, isError, message } = useSelector((state) => state.artwork);
+  const { isSuccess, isError, isLoading, message } = useSelector(
+    (state) => state.artwork
+  );
+
+  const fileInputRef = createRef();
 
   useEffect(() => {
     if (!user) {
@@ -35,9 +41,9 @@ const Upload = () => {
     medium: "",
     year: "",
     description: "",
+    available: false,
+    type: "",
   };
-
-  const fileInputRef = createRef();
 
   const [form, setForm] = useState(emptyForm);
 
@@ -53,23 +59,12 @@ const Upload = () => {
     formData.append("medium", form.medium);
     formData.append("year", form.year);
     formData.append("description", form.description);
+    formData.append("available", form.available);
+    formData.append("type", form.type);
 
     dispatch(uploadArtwork(formData));
     setForm(emptyForm);
     fileInputRef.current.value = "";
-  };
-
-  const onChange = (e) => {
-    setForm((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-  };
-  const onFileChange = (e) => {
-    setForm((prevState) => ({
-      ...prevState,
-      imageFile: e.target.files[0],
-    }));
   };
 
   return (
@@ -78,70 +73,16 @@ const Upload = () => {
         <meta name="robots" content="noindex,nofollow" />
       </Helmet>
       <section className="flex items-center justify-center h-screen">
-        <form className="flex flex-col gap-4" onSubmit={onSubmit}>
-          <input
-            required
-            type="file"
-            name="imageFile"
-            ref={fileInputRef}
-            onChange={onFileChange}
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <UploadForm
+            onSubmit={onSubmit}
+            form={form}
+            setForm={setForm}
+            fileInputRef={fileInputRef}
           />
-          <input
-            type="text"
-            name="title"
-            placeholder="Title"
-            value={form.title}
-            onChange={onChange}
-          />
-          <input
-            type="text"
-            name="altText"
-            placeholder="Alt Text"
-            value={form.altText}
-            onChange={onChange}
-          />
-          <input
-            required
-            type="number"
-            name="width"
-            placeholder="Width"
-            value={form.width}
-            onChange={onChange}
-          />
-          <input
-            required
-            type="number"
-            name="height"
-            placeholder="Height"
-            value={form.height}
-            onChange={onChange}
-          />
-          <input
-            required
-            type="text"
-            name="medium"
-            placeholder="Medium"
-            value={form.medium}
-            onChange={onChange}
-          />
-          <input
-            required
-            type="number"
-            name="year"
-            placeholder="Year"
-            value={form.year}
-            onChange={onChange}
-          />
-          <textarea
-            name="description"
-            placeholder="Description"
-            value={form.description}
-            onChange={onChange}
-          ></textarea>
-          <button className="border bg-slate-100" type="submit">
-            SUBMIT
-          </button>
-        </form>
+        )}
       </section>
     </main>
   );

@@ -36,6 +36,15 @@ const artworkSchema = mongoose.Schema(
       type: String,
       trim: true,
     },
+    available: {
+      type: Boolean,
+      required: true,
+    },
+    type: {
+      type: String,
+      enum: ["painting", "watercolor", "photograph"],
+      required: true,
+    },
     hash: {
       type: String,
       required: true,
