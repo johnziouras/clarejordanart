@@ -72,7 +72,7 @@ const Upload = () => {
   };
 
   return (
-    <main>
+    <>
       <Helmet>
         <meta name="robots" content="noindex,nofollow" />
       </Helmet>
@@ -88,7 +88,7 @@ const Upload = () => {
           />
         )}
       </section>
-    </main>
+    </>
   );
 };
 

@@ -62,7 +62,6 @@ const UploadForm = forwardRef(
           onChange={onChange}
         />
         <input
-          required
           type="number"
           name="width"
           placeholder="Width"
@@ -70,7 +69,6 @@ const UploadForm = forwardRef(
           onChange={onChange}
         />
         <input
-          required
           type="number"
           name="height"
           placeholder="Height"
@@ -78,7 +76,6 @@ const UploadForm = forwardRef(
           onChange={onChange}
         />
         <input
-          required
           type="text"
           name="medium"
           placeholder="Medium"
@@ -86,7 +83,6 @@ const UploadForm = forwardRef(
           onChange={onChange}
         />
         <input
-          required
           type="number"
           name="year"
           placeholder="Year"
@@ -113,12 +109,12 @@ const UploadForm = forwardRef(
           <input
             type="radio"
             name="type"
-            value="painting"
-            checked={form.type === "painting"}
+            value="artwork"
+            checked={form.type === "artwork"}
             onChange={onChange}
             required
           />
-          PAINTING
+          ARTWORK
         </label>
         <label className="flex items-center gap-2">
           <input
@@ -130,17 +126,6 @@ const UploadForm = forwardRef(
             required
           />
           PHOTOGRAPH
-        </label>
-        <label className="flex items-center gap-2">
-          <input
-            type="radio"
-            name="type"
-            value="watercolor"
-            checked={form.type === "watercolor"}
-            onChange={onChange}
-            required
-          />
-          WATERCOLOR
         </label>
         <button className="border bg-slate-100" type="submit">
           SUBMIT

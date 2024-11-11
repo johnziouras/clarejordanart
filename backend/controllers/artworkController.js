@@ -4,9 +4,21 @@ const Artwork = require("../models/artworkModel");
 const crypto = require("crypto");
 
 const getArtwork = asyncHandler(async (req, res) => {
-  const artwork = await Artwork.find();
+  const { type } = req.query; // Extract type from query params
 
-  res.status(200).json(artwork);
+  try {
+    const filter = type ? { type } : {};
+
+    const artwork = await Artwork.find(filter);
+
+    if (!artwork || artwork.length === 0) {
+      return res.status(404).json({ message: "No artwork found" });
+    }
+
+    res.status(200).json(artwork);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to retrieve artwork" });
+  }
 });
 
 const setArtwork = asyncHandler(async (req, res) => {
@@ -19,13 +31,13 @@ const setArtwork = asyncHandler(async (req, res) => {
     const {
       title = "",
       altText = "",
-      height,
-      width,
-      medium,
-      year,
+      height = "",
+      width = "",
+      medium = "",
+      year = "",
       description = "",
       available = false,
-      type,
+      type = "",
     } = req.body;
 
     const hash = crypto

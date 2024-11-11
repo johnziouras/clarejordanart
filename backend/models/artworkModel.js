@@ -23,24 +23,19 @@ const artworkSchema = mongoose.Schema(
     },
     width: {
       type: Number,
-      required: true,
     },
     height: {
       type: Number,
-      required: true,
     },
     medium: {
       type: String,
-      required: true,
       trim: true,
     },
     year: {
       type: Number,
-      required: true,
     },
     description: {
       type: String,
-      trim: true,
     },
     available: {
       type: Boolean,
@@ -48,7 +43,7 @@ const artworkSchema = mongoose.Schema(
     },
     type: {
       type: String,
-      enum: ["painting", "watercolor", "photograph"],
+      enum: ["artwork", "photograph"],
       required: true,
     },
     hash: {

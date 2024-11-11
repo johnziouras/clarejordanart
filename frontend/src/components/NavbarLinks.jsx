@@ -16,16 +16,13 @@ const NavbarLinks = () => {
   return (
     <div className="flex-nowrap whitespace-nowrap mt-2">
       <Link
-        to="/paintings"
+        to="/artwork"
         className="hover:text-blue text-xl font-bold pr-4 text-orange-700"
       >
-        PAINTINGS
+        ARTWORK
       </Link>
-      <Link to="/photography" className="text-xl font-bold pr-4 text-amber-300">
+      <Link to="/photography" className="text-xl font-bold pr-4 text-sky-700 ">
         PHOTOGRAPHY
-      </Link>
-      <Link to="/watercolors" className="text-xl font-bold pr-4 text-sky-700">
-        WATERCOLORS
       </Link>
       <Link
         to="/publications"
@@ -36,7 +33,7 @@ const NavbarLinks = () => {
       <Link to="/about" className="text-xl font-bold pr-4 text-teal-400">
         ABOUT
       </Link>
-      <Link to="/contact" className="text-xl font-bold pr-4 text-sky-700">
+      <Link to="/contact" className="text-xl font-bold pr-4 text-amber-300">
         CONTACT
       </Link>
       {user && (

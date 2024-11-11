@@ -1,4 +1,4 @@
-const About= () => {
+const About = () => {
   return (
     <div className="flex m-8">
       <h1 className="font-bold text-2xl">About</h1>

@@ -54,7 +54,7 @@ function Login() {
   }
 
   return (
-    <main>
+    <>
       <Helmet>
         <meta name="robots" content="noindex,nofollow" />
       </Helmet>
@@ -64,7 +64,7 @@ function Login() {
         onChange={onChange}
         onSubmit={onSubmit}
       />
-    </main>
+    </>
   );
 }
 

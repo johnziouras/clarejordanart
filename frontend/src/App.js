@@ -12,23 +12,27 @@ import Update from "./pages/Update";
 
 function App() {
   return (
-    <>
+    <div className="flex flex-col h-screen">
       <Router>
         <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/update" element={<Update />} />
-          <Route path="/paintings" element={<Artwork path="paintings" />} />
-          <Route path="/watercolors" element={<Artwork path="watercolors" />} />
-          <Route path="/photography" element={<Artwork path="photography" />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/update" element={<Update />} />
+            <Route path="/artwork" element={<Artwork type="artwork" />} />
+            <Route
+              path="/photography"
+              element={<Artwork type="photograph" />}
+            />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </main>
         <Footer />
       </Router>
       <ToastContainer />
-    </>
+    </div>
   );
 }
 

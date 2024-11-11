@@ -1,11 +1,7 @@
 import ImageGrid from "../components/ImageGrid";
 
-const Artwork = ({ path }) => {
-  return (
-    <main className="relative">
-      <ImageGrid path={path} />
-    </main>
-  );
+const Artwork = ({ type }) => {
+  return <ImageGrid type={type} />;
 };
 
 export default Artwork;
