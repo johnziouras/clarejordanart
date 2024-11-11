@@ -6,11 +6,17 @@ const artworkSchema = mongoose.Schema(
       type: String,
       trim: true,
     },
-    imageURL: {
+    primaryImageUrl: {
       type: String,
       required: true,
       trim: true,
     },
+    alternativeImageUrls: [
+      {
+        type: String,
+        trim: true,
+      },
+    ],
     altText: {
       type: String,
       trim: true,

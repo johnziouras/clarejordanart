@@ -33,7 +33,8 @@ const Upload = () => {
   }, [isSuccess, isError, message, dispatch]);
 
   const emptyForm = {
-    imageFile: null,
+    primaryFile: null,
+    alternativeFiles: [],
     title: "",
     altText: "",
     height: "",
@@ -51,7 +52,10 @@ const Upload = () => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("imageFile", form.imageFile);
+    formData.append("primaryFile", form.primaryFile);
+    form.alternativeFiles.forEach((file) => {
+      formData.append("alternativeFiles", file);
+    });
     formData.append("title", form.title);
     formData.append("altText", form.altText);
     formData.append("height", form.height);

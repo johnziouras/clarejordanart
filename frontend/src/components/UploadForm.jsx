@@ -8,10 +8,16 @@ const UploadForm = forwardRef(
         [e.target.name]: e.target.value,
       }));
     };
-    const onFileChange = (e) => {
+    const onPrimaryFileChange = (e) => {
       setForm((prevState) => ({
         ...prevState,
-        imageFile: e.target.files[0],
+        primaryFile: e.target.files[0],
+      }));
+    };
+    const onAlternativeFilesChange = (e) => {
+      setForm((prevState) => ({
+        ...prevState,
+        alternativeFiles: Array.from(e.target.files),
       }));
     };
     const onCheckChange = (e) => {
@@ -22,13 +28,25 @@ const UploadForm = forwardRef(
     };
     return (
       <form className="flex flex-col gap-4" onSubmit={onSubmit}>
-        <input
-          required
-          type="file"
-          name="imageFile"
-          ref={fileInputRef}
-          onChange={onFileChange}
-        />
+        <label className="flex gap-4 items-center">
+          PRIMARY IMAGE:
+          <input
+            required
+            type="file"
+            name="primaryFile"
+            ref={fileInputRef}
+            onChange={onPrimaryFileChange}
+          />
+        </label>
+        <label className="flex gap-4 items-center">
+          ALTERNATIVE IMAGES:
+          <input
+            type="file"
+            name="alternativeFiles"
+            multiple
+            onChange={onAlternativeFilesChange}
+          />
+        </label>
         <input
           type="text"
           name="title"

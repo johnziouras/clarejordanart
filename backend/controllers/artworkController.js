@@ -3,22 +3,16 @@ const { uploadFile } = require("../services/s3Service");
 const Artwork = require("../models/artworkModel");
 const crypto = require("crypto");
 
-// @desc    Get all images
-// @route   GET /api/images
-// @access  Public
 const getArtwork = asyncHandler(async (req, res) => {
   const artwork = await Artwork.find();
 
   res.status(200).json(artwork);
 });
 
-// @desc    Set image
-// @route   /api/images
-// @access  Public
 const setArtwork = asyncHandler(async (req, res) => {
-  if (!req.body || !req.file) {
+  if (!req.body || !req.files || !req.files.primaryFile) {
     res.status(400);
-    throw new Error();
+    throw new Error("Primary image is required");
   }
 
   try {
@@ -36,10 +30,8 @@ const setArtwork = asyncHandler(async (req, res) => {
 
     const hash = crypto
       .createHash("sha256")
-      .update(req.file.buffer)
+      .update(req.files.primaryFile[0].buffer)
       .digest("hex");
-
-    console.log("hash:", hash);
 
     // Check if artwork with the same hash already exists
     const existingArtwork = await Artwork.findOne({ hash });
@@ -49,11 +41,18 @@ const setArtwork = asyncHandler(async (req, res) => {
         .json({ message: "Duplicate file upload detected" });
     }
 
-    const imageURL = await uploadFile(req.file);
+    const primaryImageUrl = await uploadFile(req.files.primaryFile[0]);
+    let alternativeImageUrls = [];
+    if (req.files.alternativeFiles) {
+      alternativeImageUrls = await Promise.all(
+        req.files.alternativeFiles.map((file) => uploadFile(file))
+      );
+    }
 
     const artwork = await Artwork.create({
       title,
-      imageURL,
+      primaryImageUrl,
+      alternativeImageUrls,
       altText,
       height,
       width,
@@ -68,13 +67,11 @@ const setArtwork = asyncHandler(async (req, res) => {
     res.status(200).json(artwork);
   } catch (error) {
     res.status(500);
+    console.log("Error:", error);
     throw new Error("Failed to upload artwork");
   }
 });
 
-// @desc    Update image
-// @route   PUT /api/images/:id
-// @access  Private
 const updateArtwork = asyncHandler(async (req, res) => {
   const artwork = await Artwork.findById(req.params.id);
 
@@ -94,9 +91,6 @@ const updateArtwork = asyncHandler(async (req, res) => {
   res.status(200).json(updatedArtwork);
 });
 
-// @desc    Delete images
-// @route   DELETE /api/images/:id
-// @access  Private
 const deleteArtwork = asyncHandler(async (req, res) => {
   const artwork = await Artwork.findById(req.params.id);
 

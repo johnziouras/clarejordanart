@@ -15,7 +15,14 @@ const { protect } = require("../middleware/authMiddleware");
 router
   .route("/")
   .get(getArtwork)
-  .post(protect, upload.single("imageFile"), setArtwork);
+  .post(
+    protect,
+    upload.fields([
+      { name: "primaryFile", maxCount: 1 },
+      { name: "alternativeFiles", maxCount: 5 },
+    ]),
+    setArtwork
+  );
 router.route("/:id").put(protect, updateArtwork).delete(protect, deleteArtwork);
 
 module.exports = router;
