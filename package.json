@@ -4,10 +4,11 @@
   "description": "Clare Jordan Art Portfolio",
   "main": "server.js",
   "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "start": "node backend/server.js",
-    "server": "nodemon backend/server.js",
-    "client": "npm start --prefix frontend",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "frontend-build": "cd /frontend && npm install && npm run build",
+    "backend-build": "cd /backend && npm install",
+    "build": "npm run frontend-build && npm run backend-build"
   },
   "author": "John Ziouras",
   "license": "ISC",
