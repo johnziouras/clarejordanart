@@ -15,8 +15,8 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(express.static(path.join(__dirname, "../frontend/build")));
 
-app.use("/artwork", require("./routes/artworkRoutes"));
-app.use("/users", require("./routes/userRoutes"));
+app.use("/api/artwork", require("./routes/artworkRoutes"));
+app.use("/api/users", require("./routes/userRoutes"));
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));

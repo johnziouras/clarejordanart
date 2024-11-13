@@ -78,7 +78,9 @@ const Upload = () => {
       </Helmet>
       <section className="flex items-center justify-center h-screen">
         {isLoading ? (
-          <MoonLoader />
+          <div className="flex justify-center items-center h-full">
+            <MoonLoader />
+          </div>
         ) : (
           <UploadForm
             onSubmit={onSubmit}

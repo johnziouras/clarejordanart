@@ -50,7 +50,11 @@ function Login() {
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
   if (isLoading) {
-    return <MoonLoader />;
+    return (
+      <div className="flex justify-center items-center h-full">
+        <MoonLoader />
+      </div>
+    );
   }
 
   return (

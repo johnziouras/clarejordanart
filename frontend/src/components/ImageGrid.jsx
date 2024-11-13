@@ -17,7 +17,11 @@ const ImageGrid = ({ type }) => {
   }, [dispatch, type]);
 
   if (isLoading) {
-    return <MoonLoader />;
+    return (
+      <div className="flex justify-center items-center h-full">
+        <MoonLoader />
+      </div>
+    );
   }
 
   return (

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "/artwork/";
+const API_URL = "/api/artwork/";
 
 const getArtwork = async (type) => {
   const response = await axios.get(API_URL, {
