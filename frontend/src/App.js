@@ -8,6 +8,7 @@ import Artwork from "./pages/Artwork";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import Publications from "./pages/Publications";
 import Update from "./pages/Update";
 
 function App() {
@@ -19,12 +20,13 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/update" element={<Update />} />
+            <Route path="/updateArtwork" element={<Update />} />
             <Route path="/artwork" element={<Artwork type="artwork" />} />
             <Route
               path="/photography"
               element={<Artwork type="photograph" />}
             />
+            <Route path="/publications" element={<Publications />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
