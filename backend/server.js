@@ -24,4 +24,4 @@ app.use(errorHandler);
 
 app.listen(port, () => console.log(`server started on port ${port}`));
 
-app.use(express.static(path.join(__dirname, "frontend/build")));
+app.use(express.static(path.join(__dirname, "../frontend/build")));
