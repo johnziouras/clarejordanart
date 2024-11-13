@@ -1,9 +1,21 @@
 import { Squash as Hamburger } from "hamburger-react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { logout, reset } from "../features/auth/authSlice";
 
 const HamburgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+
+  const onLogout = () => {
+    dispatch(logout());
+    dispatch(reset());
+    navigate("/");
+  };
+
   return (
     <div className="relative mb-0">
       <div className="flex items-center justify-end">
@@ -20,22 +32,16 @@ const HamburgerMenu = () => {
         <div className="right-0 my-0 ml-4">
           <ul className="grid gap-2 p-4 mb-0 text-right">
             <Link
-              to="/paintings"
+              to="/artwork"
               className="flex gap-1 font-bold text-md md:text-lg text-orange-700"
             >
-              PAINTINGS
+              ARTWORK
             </Link>
             <Link
               to="/photography"
-              className="flex gap-1 font-bold text-md md:text-lg text-amber-300"
+              className="flex gap-1 font-bold text-md md:text-lg  text-sky-700"
             >
               PHOTOGRAPHY
-            </Link>
-            <Link
-              to="/watercolors"
-              className="flex gap-1 font-bold text-md md:text-lg text-sky-700"
-            >
-              WATERCOLORS
             </Link>
             <Link
               to="/publications"
@@ -51,10 +57,18 @@ const HamburgerMenu = () => {
             </Link>
             <Link
               to="/contact"
-              className="flex gap-1 font-bold text-md md:text-lg text-sky-700"
+              className="flex gap-1 font-bold text-md md:text-lg text-amber-300"
             >
               CONTACT
             </Link>
+            {user && (
+              <button
+                className="flex gap-1 font-bold text-md md:text-lg"
+                onClick={onLogout}
+              >
+                LOGOUT
+              </button>
+            )}
           </ul>
         </div>
       )}
