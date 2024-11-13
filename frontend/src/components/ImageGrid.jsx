@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { MoonLoader } from "react-spinners";
 import { getArtwork, reset } from "../features/artwork/artworkSlice";
-import Spinner from "./Spinner";
 
 // Inspiration for column layout taken from https://github.com/ebenz99/blursco/blob/master/src/components/Grid/Grid.scss
 const ImageGrid = ({ type }) => {
@@ -17,34 +17,8 @@ const ImageGrid = ({ type }) => {
   }, [dispatch, type]);
 
   if (isLoading) {
-    return <Spinner />;
+    return <MoonLoader />;
   }
-
-  // const columns = [[], [], []];
-  // console.log(artwork);
-  // if (artwork && artwork.length) {
-  //   artwork.forEach((artworkObj, index) => {
-  //     columns[index % 3].push(
-  //       <div key={index} className="w-full my-4 px-2">
-  //         <img
-  //           src={artworkObj.primaryImageUrl}
-  //           alt={artworkObj.altText}
-  //           className="w-full h-auto"
-  //         />
-  //       </div>
-  //     );
-  //   });
-  // }
-
-  // return (
-  //   <div className="w-full flex flex-wrap gap-4 justify-center pt-8">
-  //     {columns.map((column, colIndex) => (
-  //       <div className="flex-1 w-full sm:w-1/2 md:w-1/3 px-2" key={colIndex}>
-  //         {column}
-  //       </div>
-  //     ))}
-  //   </div>
-  // );
 
   return (
     <div className="w-full pt-8">
@@ -60,7 +34,9 @@ const ImageGrid = ({ type }) => {
             </div>
           ))
         ) : (
-          <p>No artwork available</p>
+          <div className="flex items-center justify-center">
+            <p>No artwork available</p>
+          </div>
         )}
       </div>
     </div>

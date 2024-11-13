@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { MoonLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import LoginForm from "../components/LoginForm";
-import Spinner from "../components/Spinner";
 import { login, reset } from "../features/auth/authSlice";
 
 function Login() {
@@ -50,7 +50,7 @@ function Login() {
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
   if (isLoading) {
-    return <Spinner />;
+    return <MoonLoader />;
   }
 
   return (

@@ -2,7 +2,7 @@ import { createRef, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Spinner from "../components/Spinner";
+import { MoonLoader } from "react-spinners";
 import UploadForm from "../components/UploadForm";
 import { uploadArtwork } from "../features/artwork/artworkSlice";
 
@@ -78,7 +78,7 @@ const Upload = () => {
       </Helmet>
       <section className="flex items-center justify-center h-screen">
         {isLoading ? (
-          <Spinner />
+          <MoonLoader />
         ) : (
           <UploadForm
             onSubmit={onSubmit}
