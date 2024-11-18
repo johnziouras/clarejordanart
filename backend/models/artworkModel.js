@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 
 const artworkSchema = mongoose.Schema(
   {
+    displayOrder: {
+      type: Number,
+      default: null,
+    },
     title: {
       type: String,
       trim: true,
