@@ -15,10 +15,20 @@ const artworkSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
+    primaryImageDimensions: {
+      width: Number,
+      height: Number,
+    },
     alternativeImageUrls: [
       {
-        type: String,
-        trim: true,
+        url: {
+          type: String,
+          trim: true,
+        },
+        dimensions: {
+          width: Number,
+          height: Number,
+        },
       },
     ],
     altText: {

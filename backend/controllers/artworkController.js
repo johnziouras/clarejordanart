@@ -36,6 +36,7 @@ const setArtwork = asyncHandler(async (req, res) => {
       medium = "",
       year = "",
       description = "",
+      displayOrder = 0,
       available = false,
       type = "",
     } = req.body;
@@ -53,7 +54,11 @@ const setArtwork = asyncHandler(async (req, res) => {
         .json({ message: "Duplicate file upload detected" });
     }
 
-    const primaryImageUrl = await uploadFile(req.files.primaryFile[0]);
+    const response = await uploadFile(req.files.primaryFile[0]);
+    console.log("RESPONSE", response);
+    const primaryImageUrl = response.url;
+    const primaryImageDimensions = response.dimensions;
+
     let alternativeImageUrls = [];
     if (req.files.alternativeFiles) {
       alternativeImageUrls = await Promise.all(
@@ -65,12 +70,14 @@ const setArtwork = asyncHandler(async (req, res) => {
       title,
       primaryImageUrl,
       alternativeImageUrls,
+      primaryImageDimensions,
       altText,
       height,
       width,
       medium,
       year,
       description,
+      displayOrder,
       available,
       type,
       hash,
