@@ -1,6 +1,4 @@
-import "photoswipe/dist/photoswipe.css";
 import { useEffect } from "react";
-import { Gallery, Item } from "react-photoswipe-gallery";
 import { useDispatch, useSelector } from "react-redux";
 import { MoonLoader } from "react-spinners";
 import { getArtwork, reset } from "../features/artwork/artworkSlice";
@@ -27,34 +25,24 @@ const ImageGrid = ({ type }) => {
   }
 
   return (
-    <div className="w-full pt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {artwork && artwork.length ? (
-        artwork.map((artworkObj) => (
-          <Gallery withCaption>
-            <Item
-              key={artworkObj._id}
-              original={artworkObj.primaryImageUrl}
-              thumbnail={artworkObj.primaryImageUrl}
-              width={800}
-              height={800}
-            >
-              {({ ref, open }) => (
-                <img
-                  ref={ref}
-                  onClick={open}
-                  src={artworkObj.primaryImageUrl}
-                  alt={artworkObj.altText}
-                  className="w-full h-auto object-cover cursor-pointer hover:opacity-80 transition-opacity"
-                />
-              )}
-            </Item>
-          </Gallery>
-        ))
-      ) : (
-        <div className="flex items-center justify-center">
-          <p>No artwork available</p>
-        </div>
-      )}
+    <div className="w-full pt-8">
+      <div className="columns-1 md:columns-2 lg:columns-3 gap-4">
+        {artwork && artwork.length ? (
+          artwork.map((artworkObj, index) => (
+            <div key={index} className="mx-4 mb-8 px-2 break-inside-avoid">
+              <img
+                src={artworkObj.primaryImageUrl}
+                alt={artworkObj.altText}
+                className="w-full h-auto"
+              />
+            </div>
+          ))
+        ) : (
+          <div className="flex items-center justify-center">
+            <p>No artwork available</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
