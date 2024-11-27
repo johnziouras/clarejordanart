@@ -14,7 +14,7 @@ const CustomImage = ({ artworkObj }) => {
   return (
     <Gallery withCaption>
       <Item
-        key={_id}
+        key={`${_id}-primary`}
         original={primaryImageUrl}
         thumbnail={primaryImageUrl}
         width={width}
@@ -30,6 +30,22 @@ const CustomImage = ({ artworkObj }) => {
           />
         )}
       </Item>
+      {alternativeImageUrls &&
+        alternativeImageUrls.length > 0 &&
+        alternativeImageUrls.map((altImageObj, idx) => (
+          <Item
+            key={`${_id}-alt-${idx}`}
+            original={altImageObj.url}
+            thumbnail={altImageObj.url}
+            width={altImageObj.dimensions.width}
+            height={altImageObj.dimensions.height}
+          >
+            {/* Really hacky, there is probably a smarter way to do this */}
+            {({ ref, open }) => (
+              <span ref={ref} style={{ display: "none" }} onClick={open}></span>
+            )}
+          </Item>
+        ))}
     </Gallery>
   );
 };
