@@ -1,11 +1,36 @@
-const CustomImage = ({ src, alt }) => {
+import { Gallery, Item } from "react-photoswipe-gallery";
+
+const CustomImage = ({ artworkObj }) => {
+  const {
+    _id,
+    primaryImageUrl,
+    altText,
+    primaryImageDimensions,
+    alternativeImageUrls,
+  } = artworkObj;
+
+  const { width, height } = primaryImageDimensions;
+
   return (
-    <Image
-      className="block w-full h-full object-contain absolute top-0 left-0"
-      src={src}
-      alt={alt}
-      fill
-    />
+    <Gallery withCaption>
+      <Item
+        key={_id}
+        original={primaryImageUrl}
+        thumbnail={primaryImageUrl}
+        width={width}
+        height={height}
+      >
+        {({ ref, open }) => (
+          <img
+            ref={ref}
+            onClick={open}
+            src={primaryImageUrl}
+            alt={altText}
+            className="max-w-full h-auto object-cover cursor-pointer hover:opacity-80 transition-opacity"
+          />
+        )}
+      </Item>
+    </Gallery>
   );
 };
 

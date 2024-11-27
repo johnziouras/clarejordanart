@@ -1,12 +1,26 @@
-import { useEffect } from "react";
+import "photoswipe/dist/photoswipe.css";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MoonLoader } from "react-spinners";
 import { getArtwork, reset } from "../features/artwork/artworkSlice";
+// import CustomImage from "./CustomImage";
+import CustomImage from "./CustomImage";
 
 // Inspiration for column layout taken from https://github.com/ebenz99/blursco/blob/master/src/components/Grid/Grid.scss
 const ImageGrid = ({ type }) => {
+  const [loading, setLoading] = useState(true);
+
   const dispatch = useDispatch();
-  const { artwork, isLoading } = useSelector((state) => state.artwork);
+  const { artwork, isLoading, isSuccess } = useSelector(
+    (state) => state.artwork
+  );
+
+  const handleLoad = () => {
+    setLoading(!loading);
+  };
+  // let col1,
+  //   col2,
+  //   col3 = [];
 
   useEffect(() => {
     dispatch(getArtwork(type));
@@ -24,17 +38,19 @@ const ImageGrid = ({ type }) => {
     );
   }
 
+  // if (isSuccess) {
+  //   col1 = artwork.filter((_, index) => index % 3 === 0);
+  //   col2 = artwork.filter((_, index) => index % 3 === 1);
+  //   col3 = artwork.filter((_, index) => index % 3 === 2);
+  // }
+
   return (
-    <div className="w-full pt-8">
-      <div className="columns-1 md:columns-2 lg:columns-3 gap-4">
+    <div className="w-full p-8">
+      <div className="columns-2 md:columns-3 gap-4">
         {artwork && artwork.length ? (
-          artwork.map((artworkObj, index) => (
-            <div key={index} className="mx-4 mb-8 px-2 break-inside-avoid">
-              <img
-                src={artworkObj.primaryImageUrl}
-                alt={artworkObj.altText}
-                className="w-full h-auto"
-              />
+          artwork.map((artworkObj) => (
+            <div className="mb-8">
+              <CustomImage artworkObj={artworkObj} />{" "}
             </div>
           ))
         ) : (
