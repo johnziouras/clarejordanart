@@ -19,6 +19,7 @@ const CustomImage = ({ artworkObj }) => {
         thumbnail={primaryImageUrl}
         width={width}
         height={height}
+        caption="<h1>HELLLOOO</h1>"
       >
         {({ ref, open }) => (
           <img

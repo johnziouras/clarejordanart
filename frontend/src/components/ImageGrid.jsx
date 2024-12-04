@@ -46,7 +46,7 @@ const ImageGrid = ({ type }) => {
 
   return (
     <div className="w-full p-8">
-      <div className="columns-2 md:columns-3 gap-4">
+      <div className="columns-2 md:columns-3 gap-8">
         {artwork && artwork.length ? (
           artwork.map((artworkObj) => (
             <div className="mb-8">
