@@ -21,6 +21,12 @@ const NavbarLinks = () => {
       >
         ARTWORK
       </Link>
+      <Link
+        to="/albums"
+        className="hover:text-blue text-xl font-bold pr-4 text-[#C175FF]"
+      >
+        ALBUMS
+      </Link>
       <Link to="/photography" className="text-xl font-bold pr-4 text-sky-700 ">
         PHOTOGRAPHY
       </Link>

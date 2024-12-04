@@ -38,6 +38,12 @@ const HamburgerMenu = () => {
               ARTWORK
             </Link>
             <Link
+              to="/albums"
+              className="flex gap-1 font-bold text-md md:text-lg text-[#C175FF]"
+            >
+              ALBUMS
+            </Link>
+            <Link
               to="/photography"
               className="flex gap-1 font-bold text-md md:text-lg  text-sky-700"
             >

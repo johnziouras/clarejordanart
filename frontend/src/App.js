@@ -22,6 +22,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/updateArtwork" element={<Update />} />
             <Route path="/artwork" element={<Artwork type="artwork" />} />
+            <Route path="/albums" element={<Artwork type="album" />} />
             <Route
               path="/photography"
               element={<Artwork type="photograph" />}
