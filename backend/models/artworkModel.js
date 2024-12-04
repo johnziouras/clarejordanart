@@ -57,7 +57,7 @@ const artworkSchema = mongoose.Schema(
     },
     type: {
       type: String,
-      enum: ["artwork", "photograph"],
+      enum: ["artwork", "photograph", "album"],
       required: true,
     },
     hash: {

@@ -120,6 +120,17 @@ const UploadForm = forwardRef(
           <input
             type="radio"
             name="type"
+            value="album"
+            checked={form.type === "album"}
+            onChange={onChange}
+            required
+          />
+          ALBUM
+        </label>
+        <label className="flex items-center gap-2">
+          <input
+            type="radio"
+            name="type"
             value="photograph"
             checked={form.type === "photograph"}
             onChange={onChange}
