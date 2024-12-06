@@ -27,7 +27,7 @@ const NavbarLinks = () => {
       >
         ALBUMS
       </Link>
-      <Link to="/photography" className="text-xl font-bold pr-4 text-[#2B3BFF]">
+      <Link to="/photography" className="text-xl font-bold pr-4 text-[#2596BE]">
         PHOTOGRAPHY
       </Link>
       <Link
