@@ -1,26 +1,15 @@
 import "photoswipe/dist/photoswipe.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MoonLoader } from "react-spinners";
 import { getArtwork, reset } from "../features/artwork/artworkSlice";
-// import CustomImage from "./CustomImage";
 import CustomImage from "./CustomImage";
 
-// Inspiration for column layout taken from https://github.com/ebenz99/blursco/blob/master/src/components/Grid/Grid.scss
 const ImageGrid = ({ type }) => {
-  const [loading, setLoading] = useState(true);
-
   const dispatch = useDispatch();
   const { artwork, isLoading, isSuccess } = useSelector(
     (state) => state.artwork
   );
-
-  const handleLoad = () => {
-    setLoading(!loading);
-  };
-  // let col1,
-  //   col2,
-  //   col3 = [];
 
   useEffect(() => {
     dispatch(getArtwork(type));
@@ -38,19 +27,13 @@ const ImageGrid = ({ type }) => {
     );
   }
 
-  // if (isSuccess) {
-  //   col1 = artwork.filter((_, index) => index % 3 === 0);
-  //   col2 = artwork.filter((_, index) => index % 3 === 1);
-  //   col3 = artwork.filter((_, index) => index % 3 === 2);
-  // }
-
   return (
-    <div className="w-full p-8">
-      <div className="columns-2 md:columns-3 gap-8">
+    <div className="w-full py-8 px-24">
+      <div className="columns-3xs lg:columns-sm gap-8">
         {artwork && artwork.length ? (
           artwork.map((artworkObj) => (
-            <div className="mb-8">
-              <CustomImage artworkObj={artworkObj} />{" "}
+            <div key={artworkObj._id} className="mb-8">
+              <CustomImage key={artworkObj._id} artworkObj={artworkObj} />{" "}
             </div>
           ))
         ) : (
@@ -60,6 +43,24 @@ const ImageGrid = ({ type }) => {
         )}
       </div>
     </div>
+
+    // <div className="w-full p-8">
+    //   {/* <div className="columns-2 md:columns-3 gap-8"> */}
+    //   {artwork && artwork.length ? (
+    //     <Masonry
+    //       items={artwork}
+    //       columnGutter={8}
+    //       columnWidth={172}
+    //       overscanBy={5}
+    //       render={CustomImage}
+    //     />
+    //   ) : (
+    //     <div className="flex items-center justify-center">
+    //       <p>No artwork available</p>
+    //     </div>
+    //   )}
+    //   {/* </div> */}
+    // </div>
   );
 };
 

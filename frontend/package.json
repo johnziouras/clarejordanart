@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^14.5.2",
     "axios": "^1.7.7",
     "hamburger-react": "^2.5.1",
+    "photoswipe-dynamic-caption-plugin": "^1.2.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-drag-drop-files": "^2.4.0",
