@@ -58,6 +58,7 @@ const setArtwork = asyncHandler(async (req, res) => {
     console.log("RESPONSE", response);
     const primaryImageUrl = response.url;
     const primaryImageDimensions = response.dimensions;
+    const primaryImageThumbnail = response.thumbnailUrl;
 
     let alternativeImageUrls = [];
     if (req.files.alternativeFiles) {
@@ -69,6 +70,7 @@ const setArtwork = asyncHandler(async (req, res) => {
     const artwork = await Artwork.create({
       title,
       primaryImageUrl,
+      primaryImageThumbnail,
       alternativeImageUrls,
       primaryImageDimensions,
       altText,

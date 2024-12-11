@@ -15,6 +15,10 @@ const artworkSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
+    primaryImageThumbnail: {
+      type: String,
+      trim: true,
+    },
     primaryImageDimensions: {
       width: Number,
       height: Number,

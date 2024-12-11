@@ -27,40 +27,19 @@ const ImageGrid = ({ type }) => {
     );
   }
 
-  return (
-    <div className="w-full py-8 px-24">
-      <div className="columns-3xs lg:columns-sm gap-8">
-        {artwork && artwork.length ? (
-          artwork.map((artworkObj) => (
-            <div key={artworkObj._id} className="mb-8">
-              <CustomImage key={artworkObj._id} artworkObj={artworkObj} />{" "}
-            </div>
-          ))
-        ) : (
-          <div className="flex items-center justify-center">
-            <p>No artwork available</p>
-          </div>
-        )}
-      </div>
-    </div>
+  const columns = [[], [], []];
+  if (isSuccess) {
+    artwork.forEach((art, index) => {
+      columns[index % 3].push(<CustomImage artworkObj={art} />);
+    });
+  }
 
-    // <div className="w-full p-8">
-    //   {/* <div className="columns-2 md:columns-3 gap-8"> */}
-    //   {artwork && artwork.length ? (
-    //     <Masonry
-    //       items={artwork}
-    //       columnGutter={8}
-    //       columnWidth={172}
-    //       overscanBy={5}
-    //       render={CustomImage}
-    //     />
-    //   ) : (
-    //     <div className="flex items-center justify-center">
-    //       <p>No artwork available</p>
-    //     </div>
-    //   )}
-    //   {/* </div> */}
-    // </div>
+  return (
+    <div className="w-full grid grid-cols-3 grid-rows-1 gap-4 py-8 px-8 sm:px-16">
+      {columns.map((column, colIndex) => (
+        <div key={colIndex}>{column}</div>
+      ))}
+    </div>
   );
 };
 
