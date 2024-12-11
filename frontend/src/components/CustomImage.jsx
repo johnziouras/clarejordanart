@@ -30,8 +30,8 @@ const CustomImage = ({ artworkObj }) => {
     <div style="font-family: 'sans-serif';font-size: 20px;">
       <div>
         <em>${title}</em><br>
-        ${height}" x ${width}"<br>
-        ${year}<br>
+        ${height && width ? `${height}" x ${width}"<br>` : ""}
+        ${year ? `${year}<br>` : ""}
         ${available ? "Available" : "Sold"}<br>
         ${description ? description : ""}
       </div>
@@ -78,7 +78,7 @@ const CustomImage = ({ artworkObj }) => {
               ref={ref}
               onClick={open}
               onLoad={() => setLoaded(true)}
-              src={primaryImageThumbnail} // TODO CHANGE
+              src={primaryImageThumbnail}
               alt={altText}
               className="w-full h-auto object-cover cursor-pointer hover:opacity-80 transition-opacity"
             />
