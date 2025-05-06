@@ -10,6 +10,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Publications from "./pages/Publications";
 import Update from "./pages/Update";
+import Upload from "./pages/Upload";
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/updateArtwork" element={<Update />} />
+            <Route path="/uploadArtwork" element={<Upload />} />
+            <Route path="/update/:id" element={<Update />} />
             <Route path="/artwork" element={<Artwork type="artwork" />} />
             <Route path="/albums" element={<Artwork type="album" />} />
             <Route

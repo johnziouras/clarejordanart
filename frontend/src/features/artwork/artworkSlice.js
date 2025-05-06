@@ -11,9 +11,9 @@ const initialState = {
 
 export const getArtwork = createAsyncThunk(
   "artwork/get",
-  async (type, thunkAPI) => {
+  async (paramObj, thunkAPI) => {
     try {
-      return await artworkService.getArtwork(type);
+      return await artworkService.getArtwork(paramObj);
     } catch (error) {
       const message =
         (error.message && error.response.data && error.response.data.message) ||

@@ -2,10 +2,15 @@ import axios from "axios";
 
 const API_URL = "/api/artwork/";
 
-const getArtwork = async (type) => {
+const getArtwork = async (paramObj) => {
+  const response = await axios.get(API_URL, paramObj);
+  return response.data;
+};
+
+const getArtworkById = async (id) => {
   const response = await axios.get(API_URL, {
     params: {
-      type: type,
+      id: id,
     },
   });
   return response.data;
@@ -37,6 +42,7 @@ const deleteArtwork = async (id, token) => {
 
 const artworkService = {
   getArtwork,
+  getArtworkById,
   uploadArtwork,
   deleteArtwork,
 };
