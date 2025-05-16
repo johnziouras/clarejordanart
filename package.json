@@ -4,7 +4,8 @@
   "description": "Clare Jordan Art Portfolio",
   "main": "server.js",
   "scripts": {
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "dev": "concurrently \"npm run start\" \"npm run client\"",
+    "client": "cd frontend && npm run start",
     "start": "node backend/server.js",
     "frontend-build": "cd frontend && npm install && npm run build",
     "backend-build": "cd backend && npm install",
