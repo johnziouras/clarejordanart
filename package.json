@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "start": "node backend/server.js",
+    "server": "node backend/server.js",
+    "client": "cd frontend && npm run start",
     "frontend-build": "cd frontend && npm install && npm run build",
     "backend-build": "cd backend && npm install",
     "build": "npm run frontend-build && npm run backend-build"
