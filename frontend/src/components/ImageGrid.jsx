@@ -64,7 +64,6 @@ const ImageGrid = ({ type }) => {
       );
       shortest.height += aspectRatio;
     });
-    console.log(columns);
   }
 
   return (
