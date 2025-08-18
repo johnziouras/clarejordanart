@@ -9,12 +9,11 @@ const getArtwork = asyncHandler(async (req, res) => {
   try {
     const filter = type ? { type } : {};
 
-    const artwork = await Artwork.find(filter);
+    const artwork = await Artwork.find(filter).sort({ createdAt: -1 });
 
     if (!artwork || artwork.length === 0) {
       return res.status(404).json({ message: "No artwork found" });
     }
-
     res.status(200).json(artwork);
   } catch (error) {
     res.status(500).json({ message: "Failed to retrieve artwork" });
