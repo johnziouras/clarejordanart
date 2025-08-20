@@ -2,7 +2,11 @@ import "photoswipe/dist/photoswipe.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MoonLoader } from "react-spinners";
-import { getArtwork, reset } from "../features/artwork/artworkSlice";
+import {
+  getArtwork,
+  reset,
+  saveArtworkOrder,
+} from "../features/artwork/artworkSlice";
 import CustomImage from "./CustomImage";
 
 const ImageGrid = ({ type }) => {
@@ -22,6 +26,26 @@ const ImageGrid = ({ type }) => {
       setColumns(originalColumns.map((col) => [...col]));
     }
     setIsEditing(!isEditing);
+  };
+
+  const flattenRowMajor = (cols) => {
+    const maxLen = Math.max(0, ...cols.map((c) => c.length));
+    const flat = [];
+    for (let r = 0; r < maxLen; r++) {
+      for (let c = 0; c < cols.length; c++) {
+        if (cols[c][r]) flat.push(cols[c][r]);
+      }
+    }
+    return flat;
+  };
+
+  const handleSave = () => {
+    const orderData = flattenRowMajor(columns).map((art, idx) => ({
+      _id: art._id,
+      displayOrder: idx,
+    }));
+    dispatch(saveArtworkOrder(orderData));
+    setIsEditing(false);
   };
 
   useEffect(() => {
@@ -123,13 +147,21 @@ const ImageGrid = ({ type }) => {
   return (
     <>
       {user && (
-        <div className="flex justify-center">
+        <div className="flex justify-center gap-4 mb-4">
           <button
             className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
             onClick={handleClick}
           >
             {isEditing ? "CANCEL" : "EDIT"}
           </button>
+          {isEditing && (
+            <button
+              className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 border rounded shadow"
+              onClick={handleSave}
+            >
+              SAVE
+            </button>
+          )}
         </div>
       )}
       <div className="w-full flex gap-8 py-8 sm:px-8">

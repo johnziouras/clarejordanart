@@ -42,8 +42,6 @@ const saveArtworkOrder = async (orderData, token) => {
     },
   };
 
-  console.log(orderData);
-  console.log(`${API_URL}order`);
   const response = await axios.put(API_URL + "order", orderData, config);
   console.log(response);
   return response.data;
