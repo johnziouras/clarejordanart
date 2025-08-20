@@ -9,7 +9,7 @@ const About = () => {
           alt="Portrait of the artist."
         ></img>
         <p className="mb-8 p-0 font-serif font-thin text-xs md:text-sm text-center">
-          Clare is a 22 year-old artist from Los Angeles, California. She has
+          Clare is a 23 year-old artist from Los Angeles, California. She has
           been studying art her whole life and most recently earned a minor in
           Communication Design from Roski School of Art and Design. She enjoys
           experimenting with different techniques and subject matter to
