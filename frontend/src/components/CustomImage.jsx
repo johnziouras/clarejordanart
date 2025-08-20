@@ -53,21 +53,21 @@ const CustomImage = ({ artworkObj, isEditing, onMove }) => {
         <div className="absolute inset-0 flex flex-col justify-between items-center z-10 pointer-events-none">
           <button
             onClick={() => onMove("up")}
-            className="pointer-events-auto bg-white text-black rounded-full p-3 shadow-lg hover:bg-gray-200"
+            className="pointer-events-auto absolute top-3 left-1/2 -translate-x-1/2 bg-white text-black rounded-full p-2 shadow-lg hover:bg-gray-200"
           >
             ↑
           </button>
 
-          <div className="flex justify-between w-full px-6">
+          <div className="absolute inset-y-0 left-0 right-0 flex justify-between items-center px-3">
             <button
               onClick={() => onMove("left")}
-              className="pointer-events-auto bg-white text-black rounded-full p-3 shadow-lg hover:bg-gray-200"
+              className="pointer-events-auto bg-white text-black rounded-full p-2 shadow-lg hover:bg-gray-200"
             >
               ←
             </button>
             <button
               onClick={() => onMove("right")}
-              className="pointer-events-auto bg-white text-black rounded-full p-3 shadow-lg hover:bg-gray-200"
+              className="pointer-events-auto bg-white text-black rounded-full p-2 shadow-lg hover:bg-gray-200"
             >
               →
             </button>
@@ -75,7 +75,7 @@ const CustomImage = ({ artworkObj, isEditing, onMove }) => {
 
           <button
             onClick={() => onMove("down")}
-            className="pointer-events-auto bg-white text-black rounded-full p-3 shadow-lg hover:bg-gray-200"
+            className="pointer-events-auto absolute bottom-3 left-1/2 -translate-x-1/2 bg-white text-black rounded-full p-2 shadow-lg hover:bg-gray-200"
           >
             ↓
           </button>
