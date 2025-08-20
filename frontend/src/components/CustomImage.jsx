@@ -3,7 +3,7 @@ import "photoswipe-dynamic-caption-plugin/photoswipe-dynamic-caption-plugin.css"
 import { useState } from "react";
 import { Gallery, Item } from "react-photoswipe-gallery";
 
-const CustomImage = ({ artworkObj }) => {
+const CustomImage = ({ artworkObj, isEditing, onMove }) => {
   const {
     _id,
     primaryImageUrl,
@@ -26,17 +26,16 @@ const CustomImage = ({ artworkObj }) => {
   const [loaded, setLoaded] = useState(false);
 
   const getCaption = (title, height, width, year, available, description) => {
-    const formattedCaption = `
-    <div style="font-family: 'sans-serif';font-size: 20px;">
-      <div>
-        <em>${title}</em><br>
-        ${height && width ? `${height}" x ${width}"<br>` : ""}
-        ${year ? `${year}<br>` : ""}
-        ${available ? "Available" : "Sold"}<br>
-        ${description ? description : ""}
-      </div>
-    </div>`;
-    return formattedCaption;
+    return `
+      <div style="font-family: 'sans-serif';font-size: 20px;">
+        <div>
+          <em>${title}</em><br>
+          ${height && width ? `${height}" x ${width}"<br>` : ""}
+          ${year ? `${year}<br>` : ""}
+          ${available ? "Available" : "Sold"}<br>
+          ${description ? description : ""}
+        </div>
+      </div>`;
   };
 
   const options = {
@@ -45,14 +44,48 @@ const CustomImage = ({ artworkObj }) => {
 
   return (
     <div
-      className="mb-4"
+      className="relative mb-4"
       style={{
         paddingBottom: loaded ? "0" : `${aspectRatio}%`,
       }}
     >
+      {isEditing && (
+        <div className="absolute inset-0 flex flex-col justify-between items-center z-10 pointer-events-none">
+          <button
+            onClick={() => onMove("up")}
+            className="pointer-events-auto bg-white text-black rounded-full p-3 shadow-lg hover:bg-gray-200"
+          >
+            ↑
+          </button>
+
+          <div className="flex justify-between w-full px-6">
+            <button
+              onClick={() => onMove("left")}
+              className="pointer-events-auto bg-white text-black rounded-full p-3 shadow-lg hover:bg-gray-200"
+            >
+              ←
+            </button>
+            <button
+              onClick={() => onMove("right")}
+              className="pointer-events-auto bg-white text-black rounded-full p-3 shadow-lg hover:bg-gray-200"
+            >
+              →
+            </button>
+          </div>
+
+          <button
+            onClick={() => onMove("down")}
+            className="pointer-events-auto bg-white text-black rounded-full p-3 shadow-lg hover:bg-gray-200"
+          >
+            ↓
+          </button>
+        </div>
+      )}
+
       <Gallery
         plugins={(pswpLightbox) => {
-          const captionPlugin = new PhotoSwipeDynamicCaption(pswpLightbox, {
+          // eslint-disable-next-line
+          new PhotoSwipeDynamicCaption(pswpLightbox, {
             captionContent: (slide) => slide.data.caption,
           });
         }}
@@ -76,7 +109,7 @@ const CustomImage = ({ artworkObj }) => {
           {({ ref, open }) => (
             <img
               ref={ref}
-              onClick={open}
+              onClick={!isEditing ? open : undefined} // disable lightbox when editing
               onLoad={() => setLoaded(true)}
               src={primaryImageThumbnail}
               alt={altText}
@@ -84,34 +117,28 @@ const CustomImage = ({ artworkObj }) => {
             />
           )}
         </Item>
-        {alternativeImageUrls &&
-          alternativeImageUrls.length > 0 &&
-          alternativeImageUrls.map((altImageObj, idx) => (
-            <Item
-              key={`${_id}-alt-${idx}`}
-              original={altImageObj.url}
-              thumbnail={altImageObj.url}
-              width={altImageObj.dimensions.width}
-              height={altImageObj.dimensions.height}
-              caption={getCaption(
-                title,
-                height,
-                width,
-                year,
-                available,
-                description
-              )}
-            >
-              {/* Really hacky, there is probably a smarter way to do this */}
-              {({ ref, open }) => (
-                <span
-                  ref={ref}
-                  style={{ display: "none" }}
-                  onClick={open}
-                ></span>
-              )}
-            </Item>
-          ))}
+
+        {alternativeImageUrls?.map((altImageObj, idx) => (
+          <Item
+            key={`${_id}-alt-${idx}`}
+            original={altImageObj.url}
+            thumbnail={altImageObj.url}
+            width={altImageObj.dimensions.width}
+            height={altImageObj.dimensions.height}
+            caption={getCaption(
+              title,
+              height,
+              width,
+              year,
+              available,
+              description
+            )}
+          >
+            {({ ref, open }) => (
+              <span ref={ref} style={{ display: "none" }} onClick={open}></span>
+            )}
+          </Item>
+        ))}
       </Gallery>
     </div>
   );
