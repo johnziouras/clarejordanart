@@ -9,6 +9,7 @@ const ImageGrid = ({ type }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [numCols, setNumCols] = useState(3);
   const [columns, setColumns] = useState([]);
+  const [originalColumns, setOriginalColumns] = useState([]); // save original order
 
   const dispatch = useDispatch();
   const { artwork, isLoading, isSuccess } = useSelector(
@@ -17,10 +18,12 @@ const ImageGrid = ({ type }) => {
   const { user } = useSelector((state) => state.auth);
 
   const handleClick = () => {
+    if (isEditing) {
+      setColumns(originalColumns.map((col) => [...col]));
+    }
     setIsEditing(!isEditing);
   };
 
-  // Update numCols responsively
   useEffect(() => {
     const updateCols = () => {
       if (window.innerWidth < 640) setNumCols(2);
@@ -33,7 +36,6 @@ const ImageGrid = ({ type }) => {
     return () => window.removeEventListener("resize", updateCols);
   }, []);
 
-  // Fetch artwork
   useEffect(() => {
     dispatch(getArtwork(type));
     return () => {
@@ -41,7 +43,6 @@ const ImageGrid = ({ type }) => {
     };
   }, [dispatch, type]);
 
-  // Build columns when artwork or numCols changes
   useEffect(() => {
     if (isSuccess && artwork.length > 0) {
       const newColumns = Array.from({ length: numCols }, () => []);
@@ -49,6 +50,7 @@ const ImageGrid = ({ type }) => {
         newColumns[index % numCols].push(art);
       });
       setColumns(newColumns);
+      setOriginalColumns(newColumns); // save baseline
     }
   }, [isSuccess, artwork, numCols]);
 
@@ -85,12 +87,10 @@ const ImageGrid = ({ type }) => {
         if (colIndex > 0) {
           const targetCol = newColumns[colIndex - 1];
           if (imgIndex < targetCol.length) {
-            // swap
             const temp = targetCol[imgIndex];
             targetCol[imgIndex] = movedImg;
             newColumns[colIndex].splice(imgIndex, 0, temp);
           } else {
-            // no partner, just move over
             targetCol.push(movedImg);
           }
         } else {
@@ -102,12 +102,10 @@ const ImageGrid = ({ type }) => {
         if (colIndex < newColumns.length - 1) {
           const targetCol = newColumns[colIndex + 1];
           if (imgIndex < targetCol.length) {
-            // swap
             const temp = targetCol[imgIndex];
             targetCol[imgIndex] = movedImg;
             newColumns[colIndex].splice(imgIndex, 0, temp);
           } else {
-            // no partner, just move over
             targetCol.push(movedImg);
           }
         } else {
