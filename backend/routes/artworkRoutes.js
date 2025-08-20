@@ -9,6 +9,7 @@ const {
   setArtwork,
   updateArtwork,
   deleteArtwork,
+  updateArtworkOrder,
 } = require("../controllers/artworkController");
 const { protect } = require("../middleware/authMiddleware");
 
@@ -23,6 +24,7 @@ router
     ]),
     setArtwork
   );
+router.route("/order").put(protect, updateArtworkOrder);
 router.route("/:id").put(protect, updateArtwork).delete(protect, deleteArtwork);
 
 module.exports = router;

@@ -40,6 +40,25 @@ export const uploadArtwork = createAsyncThunk(
   }
 );
 
+export const saveArtworkOrder = createAsyncThunk(
+  "artwork/saveOrder",
+  async (orderData, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      console.log(token);
+      const response = artworkService.saveArtworkOrder(orderData, token);
+      console.log("Thunk response:", response);
+      return response;
+    } catch (error) {
+      const message =
+        (error.message && error.response.data && error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const artworkSlice = createSlice({
   name: "artwork",
   initialState,
@@ -70,6 +89,18 @@ export const artworkSlice = createSlice({
         state.artwork = action.payload;
       })
       .addCase(getArtwork.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(saveArtworkOrder.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(saveArtworkOrder.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(saveArtworkOrder.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
