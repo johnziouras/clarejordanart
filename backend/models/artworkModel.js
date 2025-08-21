@@ -4,7 +4,7 @@ const artworkSchema = mongoose.Schema(
   {
     displayOrder: {
       type: Number,
-      default: null,
+      default: 0,
     },
     title: {
       type: String,

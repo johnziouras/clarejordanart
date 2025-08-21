@@ -35,10 +35,23 @@ const deleteArtwork = async (id, token) => {
   return response.data;
 };
 
+const saveArtworkOrder = async (orderData, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.put(API_URL + "order", orderData, config);
+  console.log(response);
+  return response.data;
+};
+
 const artworkService = {
   getArtwork,
   uploadArtwork,
   deleteArtwork,
+  saveArtworkOrder,
 };
 
 export default artworkService;

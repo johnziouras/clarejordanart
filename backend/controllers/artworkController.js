@@ -9,7 +9,7 @@ const getArtwork = asyncHandler(async (req, res) => {
   try {
     const filter = type ? { type } : {};
 
-    const artwork = await Artwork.find(filter);
+    const artwork = await Artwork.find(filter).sort({ displayOrder: 1 });
 
     if (!artwork || artwork.length === 0) {
       return res.status(404).json({ message: "No artwork found" });
@@ -125,9 +125,34 @@ const deleteArtwork = asyncHandler(async (req, res) => {
   res.status(200).json({ id: req.params.id });
 });
 
+const updateArtworkOrder = asyncHandler(async (req, res) => {
+  console.log("heyooo");
+  try {
+    const updates = req.body;
+    if (!Array.isArray(updates)) {
+      return res.status(400).json({ message: "Invalid payload format" });
+    }
+
+    const bulkOps = updates.map((u) => ({
+      updateOne: {
+        filter: { _id: u._id },
+        update: { $set: { displayOrder: u.displayOrder } },
+      },
+    }));
+
+    await Artwork.bulkWrite(bulkOps);
+
+    res.status(200).json({ success: true });
+  } catch (error) {
+    console.error("Failed to update artwork order:", error);
+    res.status(500).json({ message: "Failed to update artwork order" });
+  }
+});
+
 module.exports = {
   getArtwork,
   setArtwork,
   updateArtwork,
   deleteArtwork,
+  updateArtworkOrder,
 };
